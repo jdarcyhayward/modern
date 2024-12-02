@@ -300,9 +300,6 @@ body {
 
 body {
   
-  .Mobile {
-    display: none;
-  }
   &:not(.admin) {
   
     .Site {
@@ -312,6 +309,9 @@ body {
   }
   &.admin {
     
+    .Mobile, .Header {
+      display: none;
+    }  
    .Site {
       padding: 0 100px;
     }

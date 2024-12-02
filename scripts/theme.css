@@ -5324,12 +5324,12 @@ body[data-cart-active] .screen-fade {
   opacity: 1;
 }
 
-body .Mobile {
-  display: none;
-}
 body:not(.admin) .Site {
   display: none;
   overflow: hidden;
+}
+body.admin .Mobile, body.admin .Header {
+  display: none;
 }
 body.admin .Site {
   padding: 0 100px;
