@@ -596,9 +596,7 @@ class ImageBlock {
 		var url=window.location.href;
 		if(url.indexOf('squarespace')==-1) new Loader();
 		else {
-			console.log('this should be the admin section')
-			$('body').addClass('admin');
-			console.log($('body').attr('class')+' class');
+			$('.Mobile').hide();
 		}
 	})
 })(jQuery);

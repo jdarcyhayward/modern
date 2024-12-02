@@ -5324,14 +5324,14 @@ body[data-cart-active] .screen-fade {
   opacity: 1;
 }
 
-body:not(.admin) .Site {
+body:not(.admin):not(.squarespace-config) .Site {
   display: none;
   overflow: hidden;
 }
-body.admin .Mobile, body.admin .Header {
+body.admin .Mobile, body.admin .Header, body.squarespace-config .Mobile, body.squarespace-config .Header {
   display: none;
 }
-body.admin .Site {
+body.admin .Site, body.squarespace-config .Site {
   padding: 0 100px;
 }
 
