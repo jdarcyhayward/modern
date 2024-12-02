@@ -1,0 +1,321 @@
+.Mobile {
+  display: none !important;
+}
+
+#header {
+  //backdrop-filter: blur(5px);
+  height: 100vh;
+  position: fixed;
+  left: calc(100vw - var(--headerWidth));
+  z-index: 100;
+  width: var(--headerWidth);
+  
+  @include medium-down {
+    display: none;
+  }
+  
+  &:before {
+    background: var(--colorBG);
+    bottom: 0;
+    //content: '';
+    left: 0;
+    opacity: .8;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  
+  .header--inner {
+    align-items: center;
+    background: var(--colorBG);
+    border-left: 1px solid var(--colorBorder);
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    left: 0;
+    padding: calc(.5 * var(--col-width));
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: all .675s var(--easeOutQuart);
+    transition-property: opacity transform;
+    z-index: 50;
+  }
+}
+
+.menu-content {
+  display: flex;
+  right: 50%;
+  position: absolute;
+  top: calc(1.5 *var(--colWidth));
+  transform-origin: 100% 50%;
+  transform: rotate(270deg);
+  
+  > * {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all .975s var(--easeOutQuart);
+    white-space: nowrap;
+  }
+}
+
+body[dataNavigation] {
+  
+  .menu-content > * {
+    color: var(--colorFooterType);
+  }
+}
+#navigation {
+  height: 100vh;
+  overflow: hidden;
+  position: absolute; 
+  pointer-events: none;
+  right: 100%;
+  top: 0;
+  width: 100vh;
+  
+  .nav--item {
+    background: var(--colorFooterBG);
+    border: 1px solid var(--colorBorderFooter);
+    color: var(--colorFooterType);
+    display: flex;
+    flex-direction: column;
+    height: 20vh;
+    justify-content: space-between;
+    padding: calc(.5 * var(--col-width));
+    position: absolute;
+    right: 0;
+    top: 0;  
+    transform: translateX(100%);
+    width: 20vh;
+    z-index: 10;
+    
+    .nav--item__footer {
+      align-items: flex-end;
+      display: flex;
+      justify-content: space-between;
+      
+      > div {
+        width: calc(20vh - (.5 * var(--col-width)));
+      }
+    }
+    
+    span.cnt, a {
+      color: var(--colorFooterType);
+      font-size: var(--typeSizeHeading);
+    }
+    
+    &:nth-child(2){
+      height: 40vh;
+      transition-delay: .15s;
+      width: 40vh;
+      z-index: 9;
+    }
+    &:nth-child(3){
+      height: 60vh;
+      transition-delay: .3s;
+      width: 60vh;
+      z-index: 8;
+    }
+    &:nth-child(4){
+      height: 80vh;
+      transition-delay: .45s;
+      width: 80vh;
+      z-index: 7;
+    }
+    &:nth-child(5){
+      height: 100vh;
+      transition-delay: .6s;
+      width: 100vh;
+      z-index: 6;
+    }
+  }
+}
+
+body {
+  
+  &[dataNavigation] {
+    
+    #header .header--inner {
+      background: var(--colorFooterBG);
+      border-color: var(--colorBorderFooter);
+    }
+  }
+}
+
+body {
+  
+  #navigation .nav--item {
+    opacity: 0;
+    pointer-events: none;
+    transition: all 1.675s var(--easeOutQuart);
+  }
+  &[dataNavigation] {
+    
+    #navigation .nav--item {
+      opacity: 1;
+      pointer-events: all;
+      transform: none;
+    }
+  }
+}
+
+// ====================================
+// logo 
+// ====================================
+
+#logo {
+  left: 0;
+  margin: calc(1 * var(--colWidth));
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  transition: all .975s var(--easeOutQuart);
+  z-index: 50;
+  
+  @include medium-down {
+    margin: calc(1 * var(--margin));
+  }
+  
+  img, svg {
+    display: block;
+    height: 1.5vw;
+    left: 0;
+    max-height: 36px;
+    position: absolute;
+    top: 0;
+    width: auto;
+    
+    @include medium-down {
+      height: 4.5vw;
+    }
+  }
+}
+
+body {
+  #logo svg * {
+    fill: var(--colorType);
+  }
+  &[useAltLogo] {
+    #logo svg * {
+      fill: var(--colorFooterType);
+    }
+  }
+}
+body[logoVisibility] #logo {
+  opacity: 1;
+}
+
+// ====================================
+// scrollbar
+// ====================================
+
+::-webkit-scrollbar {
+
+    background: transparent;
+}
+
+#scroll--bar {
+  background: rgba(0, 0, 0, .1);
+  bottom: 0;
+  height: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  width: calc(100% + 1px);
+}
+#menu {
+  border: 1px solid var(--colorType);
+  border-radius: 99px;
+  height: calc(.5 * var(--colWidth));
+  position: relative;
+  width: calc(.5 * var(--colWidth));
+  
+  &:before,
+  &:after {
+    border-top: 1px solid var(--colorType);
+    content: '';
+    height: 0;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -7px);
+    width: 75%;
+  }
+  &:after {
+    transform: translate(-50%, 7px); 
+  }
+}
+
+body {
+  
+  #menu, 
+  #menu:before,
+  #menu:after {
+    transition: all .975s var(--easeOutQuart);
+  }
+}
+body[dataNavigation] {
+  
+  #menu {
+    border-color: var(--colorBorderFooter);
+    transform: rotate(180deg);
+    
+    &:before, 
+    &:after {
+      border-color: var(--colorBorderFooter);  
+      transform: translate(-50%, 0);
+    }
+    &:after {
+      opacity: 0;
+    }
+  }
+}
+body {
+  
+  #header {
+    
+    h1, h2 {
+      display: flex;
+      transition: all .975s var(--easeOutQuart);
+    }
+    h1 {
+      opacity: 0;
+      transform: translate(10px, -50%);
+      
+    }
+    h1 svg {
+      height: 28px;
+      
+      * {
+        fill: var(--colorType);
+        transition: fill .975s var(--easeOutQuart);
+      }
+    }
+  }
+  h2 {
+    opacity: 1;
+  }
+  &:not([logoVisibility]) #header {
+    
+    h1 {
+      opacity: 1;
+      transform: translate(0, -50%);
+    }
+    h2 {
+      opacity: 0;
+      transform: translate(-10px, -50%);
+    }
+  }
+  
+  // with nav open
+  
+  &[dataNavigation] #header {
+    h1 svg * {
+      fill: var(--colorFooterType);
+    }
+  }
+}
