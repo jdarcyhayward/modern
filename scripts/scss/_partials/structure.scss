@@ -300,14 +300,14 @@ body {
 
 body {
   
-  &:not(.admin) {
+  &:not(.admin):not(.squarespace-config) {
   
     .Site {
       display: none;
       overflow: hidden;
     }
   }
-  &.admin {
+  &.admin, &.squarespace-config {
     
     .Mobile, .Header {
       display: none;
