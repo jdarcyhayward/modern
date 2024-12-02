@@ -141,6 +141,12 @@
               <section class="Main-content" data-content-field="main-content">
                 {squarespace.main-content}
               </section>
+              <section class="Main-content" data-content-field="main-content-2">
+                {squarespace.main-content-2}
+              </section>
+              <section class="Main-content" data-content-field="main-content-3">
+                {squarespace.main-content-3}
+              </section>
             {.end}
           </main>
 

@@ -5325,6 +5325,10 @@ body[data-cart-active] .screen-fade {
   opacity: 1;
 }
 
+body .sqs-block.sqs-block-editable:not(.sqs-block-editing) {
+  border: 2px solid blue;
+  margin: 10px 40px;
+}
 body:not(.admin):not(.squarespace-config) .Site {
   display: none;
   overflow: hidden;
