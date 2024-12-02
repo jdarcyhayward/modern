@@ -5324,7 +5324,7 @@ body[data-cart-active] .screen-fade {
   opacity: 1;
 }
 
-body .Site {
+body:not(.admin) .Site {
   display: none;
   overflow: hidden;
 }

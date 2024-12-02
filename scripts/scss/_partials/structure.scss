@@ -298,7 +298,8 @@ body {
   }
 }
 
-body {
+body:not(.admin) {
+  
   .Site {
     display: none;
     overflow: hidden;

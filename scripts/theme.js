@@ -594,8 +594,9 @@ class ImageBlock {
 (function($) {
 	$(document).ready(function(){ 
 		var url=window.location.href;
-		var htmlClass=$('html').attr('class');
-		console.log(url,htmlClass);
 		if(url.indexOf('squarespace')==-1) new Loader();
+		else {
+			$('body').addClass('admin');
+		}
 	})
 })(jQuery);
