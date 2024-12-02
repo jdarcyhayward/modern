@@ -1,5 +1,6 @@
-body {
-  padding-top: 0;
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
 div {
@@ -299,7 +300,10 @@ body {
 }
 
 body {
-  
+  .sqs-block.sqs-block-editable:not(.sqs-block-editing) {
+    border: 2px solid blue;
+    margin: 10px 40px;
+  }
   &:not(.admin):not(.squarespace-config) {
   
     .Site {

@@ -5046,8 +5046,9 @@
     --margin: 20px;
   }
 }
-body {
-  padding-top: 0;
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
 div {
