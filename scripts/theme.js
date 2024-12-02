@@ -123,7 +123,6 @@ class ScrollClass {
 			}
 			// testing logo stuff
 			if(__this.scrLeft>=el.data('start')&&__this.scrLeft<el.data('end')){
-				console.log(el.attr('class')+'     classssss');
 				if(el.is('.section.dark--image')) useAlt=1;
 			}
 		})
@@ -595,6 +594,7 @@ class ImageBlock {
 (function($) {
 	$(document).ready(function(){ 
 		var url=window.location.href;
+		console.log(url);
 		if(url.indexOf('config')==-1) new Loader();
 	})
 })(jQuery);
