@@ -594,6 +594,7 @@ class ImageBlock {
 
 (function($) {
 	$(document).ready(function(){ 
-		new Loader();
+		var url=window.location.href;
+		if(url.indexOf('config')==-1) new Loader();
 	})
 })(jQuery);
