@@ -298,11 +298,23 @@ body {
   }
 }
 
-body:not(.admin) {
+body {
   
-  .Site {
+  .Mobile {
     display: none;
-    overflow: hidden;
+  }
+  &:not(.admin) {
+  
+    .Site {
+      display: none;
+      overflow: hidden;
+    }
+  }
+  &.admin {
+    
+   .Site {
+      padding: 0 100px;
+    }
   }
 }
 
