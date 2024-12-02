@@ -593,8 +593,8 @@ class ImageBlock {
 
 (function($) {
 	$(document).ready(function(){ 
-		var class=$('body').attr('class');
-		console.log(class);
-		if(class.indexOf('config')==-1) new Loader();
+		var className=$('body').attr('class');
+		console.log(className);
+		if(className.indexOf('config')==-1) new Loader();
 	})
 })(jQuery);
