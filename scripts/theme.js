@@ -596,7 +596,7 @@ class ImageBlock {
 		var url=window.location.href;
 		if(url.indexOf('squarespace')==-1) new Loader();
 		else {
-			$('.Mobile').hide();
+			$('#header, .Mobile, .Header').hide();
 		}
 	})
 })(jQuery);
