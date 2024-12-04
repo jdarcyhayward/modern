@@ -688,7 +688,7 @@ class ImageBlock {
 (function($) {
 	$(document).ready(function(){ 
 		var url=window.location.href;
-		if(url.indexOf('squarespace')==-1) new Loader();
+		if(url.indexOf('squarespacexxx')==-1) new Loader();
 		else {
 			$('#header, .Mobile, .Header').hide();
 			$('img').css('max-width', '400px');
