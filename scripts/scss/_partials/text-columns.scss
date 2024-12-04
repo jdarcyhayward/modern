@@ -8,6 +8,11 @@
   padding-left: calc(var(--margin) + var(--col-width));
   padding-right: calc(var(--margin) + var(--col-width));
   
+  @include medium-down {
+    padding-left: var(--margin);
+    padding-right: var(--margin);
+  }
+  
   .wrapper {
     display: flex;
     flex: 1;
@@ -75,6 +80,31 @@
   }
 }
 
+.section.section--content:not(.section--footer) {
+  
+  img {
+    height: auto;
+    right: 0;
+    max-height: calc(1 * var(--colWidth));
+    position: absolute;
+    top: 0;
+    width: auto;
+    
+    @include medium-down {
+      max-height: calc(3 * var(--margin));
+    }
+    
+    &[alt*="bottom"] {
+      bottom: 0;
+      top: auto;
+    }
+    &[alt*="left"] {
+      left: 0;
+      right: auto;
+    }
+  }
+}
+
 // =====================================
 //  image overlay section
 // =====================================
@@ -88,6 +118,16 @@
   
   @include medium-down {
     width: 100%;
+  }
+}
+.section.section--image-overlay.width--half {
+  width: calc(50vw);
+  
+  @include medium-down {
+    width: 100%;
+  }
+  + .section.section--content {
+    min-width: calc(50vw - var(--headerWidth));
   }
 }
 
@@ -136,6 +176,7 @@
   
   @include medium-down {
     max-width: 100%;
+    transform: none !important;
   }
 }
 
@@ -158,6 +199,64 @@
   &[dataVisibilityInit] {
     .image--overlay img {
        opacity: 1;
+    }
+  }
+}
+.section--image-overlay.section--super {
+  
+  .image--overlay__content {
+    max-width: 75%;
+  }
+  .image--caption {
+    bottom: 50%;
+    mix-blend-mode: difference;
+    transform: translateY(50%);
+  }
+  .image--caption h2 {
+    font-size: 8.375vw;
+    line-height: .9;
+    letter-spacing: -.625vw;
+    margin: 0;
+    
+    @include medium-down {
+      font-size: 18.375vw;
+    }
+    
+    &:first-child {
+      font-family: eiko;
+    }
+  }
+}
+
+.section.section--image-overlay {
+  
+  .image--overlay__content {
+    opacity: 0;
+    transition: opacity .975s var(--easeOutQuart);
+  }
+  &[dataCaption] .image--overlay__content {
+    opacity: 1;
+  }
+}
+
+.section.section--portfolio {
+  
+  .sqs-html-content {
+    display: flex;
+    position: absolute;
+    transform-origin: 0 0;
+    transform: rotate(-90deg);
+    width: calc(100vh - (2 * var(--colWidth)));
+    
+    h2 {
+      margin: 0 calc(1 * var(--colWidth)) 0 0;
+      width: calc(1 * var(--colWidth));
+      
+      &:last-child {
+        margin: 0 0 0 auto;
+        text-align: right;
+        width: auto;
+      }
     }
   }
 }

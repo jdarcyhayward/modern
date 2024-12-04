@@ -47,6 +47,19 @@ h3, .h3 {
     margin: 0;
     padding: 0;
   }
+  
+  &.preline {
+    position: relative;
+    
+    &:before {
+      border-top: 1px solid var(--colorType);
+      content: '';
+      display: inline-block;
+      margin-right: calc(1 * var(--margin));
+      transform: translateY(calc(-.05 * var(--colWidth)));
+      width: calc((2 * var(--colWidth)) - var(--margin));
+    }
+  }
 }
 
 
@@ -55,6 +68,12 @@ h3, .h3 {
   font-size: inherit;
   margin: 0;
   text-indent: 0;
+}
+
+h3, .h3 {
+  font-size: 95%;
+  letter-spacing: 0.05vw;
+  text-transform: uppercase;
 }
 
 h4, .h4 {

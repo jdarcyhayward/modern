@@ -13,12 +13,12 @@ class ScrollClass {
 		this.currPos=0;
 		this.finalPos=0;
 		this.isMobile=0;
-		$(window).on('resize', function(){
+		$(window).on('resize recalculate', function(){
 			__this.testMobile();
 			__this.configureAllElements();
 			__this.configurePageLimits();
 		})
-		$(window).on('scroll load', function(){
+		$(window).on('scroll load recalculate', function(){
 			__this.scrollConfig();
 			__this.scrollPage();
 			__this.testScrollElements();	
@@ -38,12 +38,13 @@ class ScrollClass {
 		var __this=this;
 		this.windowWidth=$(window).outerWidth();
 		this.windowHeight=$(window).outerHeight();
-		this.logoLimit=this.windowWidth/2;
+		this.logoLimit=this.windowWidth/3;
 		this.block=$('[dataVisibilityElement]');
+		this.stick=$('.image--overlay__content');
 		this.last=0;
 		this.block.each(function(){
 			var el=$(this);
-			if(!this.isMobile) {
+			if(!__this.isMobile) {
 				var left=el.offset().left-el.parent().offset().left;
 				var start=left;
 				var width=el.outerWidth();
@@ -54,6 +55,23 @@ class ScrollClass {
 			}
 			el.data('start', start);
 			el.data('end', end);
+		})
+		this.stick.each(function(){
+			var el=$(this);
+			var parent=el.closest('.section');
+			el.data('parent', parent);
+			if(!__this.isMobile) {
+				var left=parent.offset().left-parent.parent().offset().left;
+				var start=left;
+				var width=parent.outerWidth();
+				var end=start+width;
+			}else {
+				var start=el.offset().top;
+				var end=start+el.height();
+			}
+			el.data('stickStart', start);
+			el.data('stickHide', parseInt(start+width/3));
+			el.data('stickEnd', parseInt(start+width));
 		})
 	}
 	configurePageLimits(){
@@ -95,7 +113,7 @@ class ScrollClass {
 	runLerp(){
 		var __this=this;
 		var diff=(this.finalPos-this.currPos)*.05;
-		if(diff<.025){
+		if(Math.abs(diff)<10000000.025){
 			this.currPos=this.finalPos;
 			var end=this.currPos*-1;
 			this.isLerp=0;
@@ -113,11 +131,13 @@ class ScrollClass {
 	testScrollElements(){
 		var __this=this;
 		var useAlt=0;
+		var footerActive=0;
 		this.block.each(function(){
 			var el=$(this);
 			if(__this.scrFarLeft>el.data('start')&&__this.scrLeft<el.data('end')){
 				el.attr('dataVisibilityInit', 1)
 				el.attr('dataVisibility', 1)
+				if(el.is('.section--footer')) footerActive=1;
 			}else{
 				if(el.is('[dataVisibility]')) el.removeAttr('dataVisibility');
 			}
@@ -126,8 +146,29 @@ class ScrollClass {
 				if(el.is('.section.dark--image')) useAlt=1;
 			}
 		})
+		this.stick.each(function(){
+			var el=$(this);
+			if(__this.scrLeft<el.data('stickStart')){
+				el.css('transform', 'none');
+			}else{
+				var offset=__this.scrLeft-el.data('stickStart');
+				el.css('transform', 'translateX('+offset+'px)');
+			}
+			if(__this.scrLeft<el.data('stickHide')){
+				el.data('parent').attr('dataCaption', 1);
+			}else{
+				el.data('parent').removeAttr('dataCaption');
+			}	
+		})
+		
+		//footer
+		if((footerActive)) $('body').attr('dataFooterVisible', 1);
+		else $('body').removeAttr('dataFooterVisible');
+		
+		//alt logo
 		if(useAlt) $('body').attr('useAltLogo', 1);
 		else $('body').removeAttr('useAltLogo');
+		
 	}
 }
 
@@ -304,7 +345,7 @@ class HeaderBlock {
 	createBase(){
 		var __this=this;
 		this.section=$('<div id="navigation"></div>');
-		this.section.appendTo(this.header);
+		this.section.insertAfter(this.header);
 	}
 	populateBase(){
 		var __this=this;
@@ -423,6 +464,7 @@ class FooterBlock {
 					var str=head.text().split(' | ');
 					if(str.length>1){
 						if(str.indexOf('fullwidth')>-1) className="one-whole";
+						
 						head.text(str[0]);
 					}
 				}
@@ -467,18 +509,14 @@ class ContentBlock {
 		this.array=array;
 		this.elArray=elArray;
 		this.innerArray=[];
-		/*
-		this.first=this.array[0];	
-		this.last=this.array[this.array.length-1];
-		*/
-		
+		console.log(array, elArray);
 		this.createBase();
 		this.createContent();
 		this.populateBase();
 	}
 	createBase(){
 		var __this=this;
-		this.section=$('<div class="section section--content padding-top-double padding-bottom-double medium-up--padding-top-col medium-up--padding-bottom-col" dataVisibilityElement="1"><div class="wrapper"><div class="grid grid--column"><div class="grid grid--content"></div></div></div></div>');
+		this.section=$('<div class="section section--content padding-top-double padding-bottom-double medium-up--padding-top-col medium-up--padding-bottom-col" dataVisibilityElement="1"><div class="wrapper pos--relative"><div class="grid grid--column"><div class="grid grid--content"></div></div></div></div>');
 		this.section.appendTo(this.container);
 		this.wrapper=this.section.find('.wrapper');
 		this.gridBase=this.section.find('.grid--column');
@@ -493,12 +531,31 @@ class ContentBlock {
 				__this.contentArray.push(item);
 				item.attr('dataTransitionDelay', cnt);
 				cnt++;
+			}else if($(this).is('.image-block')) {
+				item.find('img').clone().appendTo(__this.wrapper);
 			}
 		});
 		this.first=this.contentArray[0];
 		this.last=this.contentArray[this.contentArray.length-1];
 	}
 	populateBase(){
+		
+		// this might need fixing
+		$.each(this.contentArray, function(index, item){
+			var h2=item.find('h2');
+			h2.each(function(){
+				var el=$(this);
+				var str=el.text().split(' | ');
+				if(str.length>1){
+					var options=str[1];
+					if(options.indexOf('preline')>-1){ 
+						el.addClass('preline');
+					}
+					el.text(str[0]);
+				}
+			})
+		})
+		
 		var __this=this;
 		var header=$('<div class="content--header"><div class="grid"></div></div>');
 		this.first.clone().prependTo(header.find('.grid'));
@@ -517,6 +574,10 @@ class ContentBlock {
 			if(str.length>1){
 				var options=str[1];
 				if(options.indexOf('fullwidth')>-1) blockWidth=' medium-up--padding-bottom-double';
+				if(options.indexOf('preline')>-1){ 
+					addEl.find('h2').addClass('preline');
+					console.log('found preline!!!!');
+				}
 			}
 			addEl.addClass('one-whole '+blockWidth+' medium-up--margin-left-col')
 			addEl.appendTo(this.grid);
@@ -526,16 +587,25 @@ class ContentBlock {
 		this.updateWrapper();
 	}
 	updateWrapper(){
-		if(this.innerArray.length==1)this.wrapper.addClass('wrapper--ten-col')
-		if(this.innerArray.length==2) this.wrapper.addClass('wrapper--seventeen-col')
+		if(this.innerArray.length==1)this.wrapper.addClass('wrapper--ten-col');
+		//if(this.innerArray.length==2) this.wrapper.addClass('wrapper--seventeen-col')
 	}
 	sanitiseBlock(el){
 		var __this=this;
 		var elArray=el.find('.sqs-html-content > *');
 		elArray.each(function(){
 			var el=$(this);
-			var str=el.text().split(' | ');
-			el.text(str[0]+'\u00A0');
+			var inner=el.find('> *');
+			if(inner.length<=1){
+				var str=el.text().split(' | ');
+				el.text(str[0]+'\u00A0');
+			}else {
+				inner.each(function(){
+					var innerEl=$(this);
+					var str=innerEl.text().split(' | ');
+					innerEl.text(str[0]+'\u00A0');	
+				})
+			}
 		})
 	}
 }
@@ -554,6 +624,8 @@ class ImageBlock {
 		this.first=this.array[0];
 		this.createBase();
 		this.populateBase();
+		console.log(this.section.width()+'       width? why is this not working?');
+		
 	}
 	createBase(){
 		var __this=this;
@@ -573,9 +645,16 @@ class ImageBlock {
 		var imgAttr=this.img.attr('alt');
 		if(typeof imgAttr!='undefined') {
 			if(imgAttr.indexOf('width100')>-1) this.section.addClass('width--full');
+			if(imgAttr.indexOf('width50')>-1) this.section.addClass('width--half');
 			if(imgAttr.indexOf('darkimage')>-1) this.section.addClass('dark--image');
 		}
+		var dims=this.img.attr('data-image-dimensions').split('x');
+		var aspect=dims[0]+'/'+dims[1];
 		this.img.clone().prependTo(imgEl);
+		this.section.css('aspect-ratio', aspect);
+		this.img.on('load', function(){
+			$('body').trigger('recalculate')
+		})
 		imgEl.prependTo(this.section);
 		var imgWidth=parseInt(this.img.attr('width'));
 		var imgHeight=parseInt(this.img.attr('height'));
@@ -587,6 +666,21 @@ class ImageBlock {
 			$.each(this.array, function(index, item){
 				if(item.is('.html-block')) item.clone().appendTo(__this.content);
 			})
+			var h2=this.content.find('h2');
+			h2.each(function(){
+				var thisStr=$(this).text().split(' | ');
+				if(thisStr.length>1){
+					var str=thisStr[1];
+					if(str.indexOf('super')>-1){
+						__this.section.addClass('section--super')
+					}
+					if(str.indexOf('portfolio')>-1){
+						__this.section.addClass('section--portfolio')
+					}
+					$(this).text(thisStr[0]);
+				}
+			})
+			
 		}
 	}
 }

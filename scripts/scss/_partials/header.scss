@@ -10,10 +10,6 @@
   z-index: 100;
   width: var(--headerWidth);
   
-  @include medium-down {
-    display: none;
-  }
-  
   &:before {
     background: var(--colorBG);
     bottom: 0;
@@ -71,11 +67,17 @@ body[dataNavigation] {
 #navigation {
   height: 100vh;
   overflow: hidden;
-  position: absolute; 
+  position: fixed; 
   pointer-events: none;
-  right: 100%;
+  right: calc(var(--headerWidth) - .5px);
   top: 0;
   width: 100vh;
+  z-index: 10;
+  
+  @include medium-down {
+    right: 0;
+    width: 100vw;
+  }
   
   .nav--item {
     background: var(--colorFooterBG);
@@ -93,6 +95,15 @@ body[dataNavigation] {
     width: 20vh;
     z-index: 10;
     
+    @include medium-down {
+      justify-content: flex-end;
+      left: 0;
+      padding: var(--margin);
+      right: auto;
+      transform: translateX(-100%);
+      width: 20vw;
+    }
+    
     .nav--item__footer {
       align-items: flex-end;
       display: flex;
@@ -100,6 +111,13 @@ body[dataNavigation] {
       
       > div {
         width: calc(20vh - (.5 * var(--col-width)));
+        
+        @include medium-down {
+          
+          &:nth-child(n+2) {
+            display: none;  
+          }
+        }
       }
     }
     
@@ -107,37 +125,59 @@ body[dataNavigation] {
       color: var(--colorFooterType);
       font-size: var(--typeSizeHeading);
     }
+    @include medium-down {
+      span.cnt {
+        transform: translateY(calc(-5vw - 50%));
+      }
+    }
     
     &:nth-child(2){
       height: 40vh;
       transition-delay: .15s;
       width: 40vh;
       z-index: 9;
+      
+      @include medium-down {
+        width: 40vw;
+      }
     }
     &:nth-child(3){
       height: 60vh;
       transition-delay: .3s;
       width: 60vh;
       z-index: 8;
+      
+      @include medium-down {
+        width: 60vw;
+      }
     }
     &:nth-child(4){
       height: 80vh;
       transition-delay: .45s;
       width: 80vh;
       z-index: 7;
+      
+      @include medium-down {
+        width: 80vw;
+      }
     }
     &:nth-child(5){
       height: 100vh;
       transition-delay: .6s;
       width: 100vh;
       z-index: 6;
+      
+      @include medium-down {
+        width: 100vw;
+      }
     }
   }
 }
 
 body {
   
-  &[dataNavigation] {
+  &[dataNavigation], 
+  &[dataFooterVisible] {
     
     #header .header--inner {
       background: var(--colorFooterBG);
@@ -184,7 +224,7 @@ body {
     display: block;
     height: 1.5vw;
     left: 0;
-    max-height: 36px;
+    max-height: 32px;
     position: absolute;
     top: 0;
     width: auto;
@@ -242,11 +282,11 @@ body[logoVisibility] #logo {
     left: 50%;
     position: absolute;
     top: 50%;
-    transform: translate(-50%, -7px);
+    transform: translate(-50%, calc(-.05 * var(--colWidth)));
     width: 75%;
   }
   &:after {
-    transform: translate(-50%, 7px); 
+    transform: translate(-50%, calc(.05 * var(--colWidth))); 
   }
 }
 
@@ -288,7 +328,8 @@ body {
       
     }
     h1 svg {
-      height: 28px;
+      height: calc(.333 * var(--colWidth));
+      max-height: 32px;
       
       * {
         fill: var(--colorType);
@@ -313,9 +354,107 @@ body {
   
   // with nav open
   
-  &[dataNavigation] #header {
-    h1 svg * {
-      fill: var(--colorFooterType);
+  &[dataNavigation],
+  &[dataFooterVisible] {
+    
+    #header {
+      
+      h1 svg * {
+        fill: var(--colorFooterType);
+      }
+    }
+  }
+}
+
+@include medium-down {
+  
+  body {  
+    
+    #logo,
+    #scroll--bar {
+      display: none;
+    }
+    #header {
+      height: auto;
+      left: 0;
+      mix-blend-mode: difference;
+      top: 0;
+      right: auto;
+      width: 100%;
+      
+      .header--inner {
+        align-items: center;
+        background: transparent none !important;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: var(--margin);
+        position: relative;
+      }
+    }
+    .menu-content {
+      display: none;
+    }
+    #menu {
+      border-color: #fff !important;
+      height: 28px;
+      order: 2;
+      width: 28px;
+      
+      &:before,
+      &:after {
+        border-color: #fff !important;
+        transform: translate(-50%, -4px);
+      }
+      &:after {
+        transform: translate(-50%, 4px); 
+      }
+    }
+  }
+  
+  body #header h1 {
+    margin: 0;
+    opacity: 1;
+    transform: none !important;;
+    
+    svg {
+      height: 24px;
+      
+      * {
+        fill: white;
+      }
+    }
+  }
+}
+
+// ============================
+// logo
+// ============================
+
+body {
+  
+  &[dataNavigation][logoVisibility] #header svg#logo-mobile,
+  #header svg#logo-mobile {
+  
+    g {  
+      > * {
+        opacity: 0;
+        transition: all .975s var(--easeOutQuart);
+        
+        &:nth-child(1), 
+        &:nth-child(7),
+        &:nth-child(20), 
+        &:nth-child(21) {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  &[logoVisibility] #header svg#logo-mobile {
+  
+    g {  
+      > * {
+        opacity: 1;
+      }
     }
   }
 }

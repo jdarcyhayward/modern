@@ -16,8 +16,11 @@
   }
   .grid--content {
     flex: 1;
-    max-height: calc(12 * var(--col-width));
     padding: calc(1 * var(--col-width)) 0;
+    
+    @include medium-down {
+      padding: calc(2 * var(--margin)) 0;
+    }
   }
 }
 
@@ -38,14 +41,22 @@
 .section--footer {
   
   .image-col {
-    aspect-ratio: 1/1;
     position: relative;
+    
+    @include medium-down {
+      padding: calc(2 * var(--margin)) 0;
+    }
     
     img {
       height: 100%;
       position: absolute;
       object-fit: cover;
       width: 100%;
+      
+      @include medium-down {
+        height: auto;
+        position: relative;
+      }
     }
   }
 }
@@ -133,6 +144,7 @@ body .form-block .form-wrapper {
     align-items: center;
     background: transparent none;
     border: none !important;
+    box-shadow: none !important;
     display: flex;
     font-family: safiro;
     font-size: var(--typeSizeHeading);
@@ -173,6 +185,7 @@ body .section--footer {
         
         &[type="checkbox"]{
           border: 1px solid var(--colorBorderFooter);
+          transform: translateY(-1px);
         }
       }
     }

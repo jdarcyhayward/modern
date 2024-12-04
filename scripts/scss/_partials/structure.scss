@@ -354,8 +354,11 @@ body {
 }
 
 .section {
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
+  
+  @include medium-down {
+  }
 }
 
 // ===============
@@ -367,6 +370,10 @@ body {
 // ===============
 //  footer
 // ===============
+
+body > svg {
+  display: none;
+}
 
 footer {
   display: none;
