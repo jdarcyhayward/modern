@@ -6699,6 +6699,15 @@ body .section--footer .form-block .form-wrapper .form-submit-button.sqs-editable
   width: auto;
 }
 
+.section.section--image-overlay > a {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 10;
+}
+
 .section.section--image-overlay.width--full {
   width: calc(100vw - var(--headerWidth));
 }
@@ -6822,6 +6831,66 @@ body .section--footer .form-block .form-wrapper .form-submit-button.sqs-editable
   margin: 0 0 0 auto;
   text-align: right;
   width: auto;
+}
+
+.accordion-block .accordion-items-container {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.accordion-block .accordion-item {
+  border-top: 1px solid var(--colorBorder);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.accordion-block .accordion-item:first-child {
+  border: none;
+}
+.accordion-block .accordion-item .accordion-item__dropdown {
+  height: 0;
+  margin: calc(1 * var(--margin)) 0 0;
+  overflow: hidden;
+  transition: all 0.975s var(--easeOutQuart);
+}
+.accordion-block .accordion-item.active .accordion-item__dropdown {
+  margin-bottom: calc(1 * var(--margin));
+}
+.accordion-block .accordion-item h3 {
+  margin: calc(1 * var(--margin)) 0;
+}
+.accordion-block .accordion-item h3 button {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.accordion-block .accordion-item h3 svg {
+  height: 30px;
+  position: relative;
+  transition: all 0.675s var(--easeOutQuart);
+  width: 30px;
+}
+.accordion-block .accordion-item h3 svg line {
+  transition: all 0.675s var(--easeOutQuart);
+}
+.accordion-block .accordion-item.active h3 button svg {
+  transform: rotate(180deg);
+}
+.accordion-block .accordion-item.active h3 button svg line:nth-child(2) {
+  opacity: 0;
+}
+.accordion-block button,
+.accordion-block button:hover {
+  background: transparent none;
+  border: none;
+  box-shadow: none;
+  color: var(--colorType);
+  font-family: safiro;
+  font-size: var(--typeSizeHeading);
+  letter-spacing: var(--letterSpacingHeading);
+  padding: 0;
+  text-transform: none;
 }
 
 .drop--down {

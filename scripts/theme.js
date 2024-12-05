@@ -189,6 +189,9 @@ class Loader {
 		this.clearBlocks();
 		this.configureBlocks();
 		this.configurePage();
+		$('#container .accordion-block').each(function(){
+			$.data($(this), new Accordion($(this)));
+		})
 		new Footer(this.footerBlock);
 		new Header(this.headerBlock);
 		new Logo();
@@ -234,6 +237,60 @@ class Loader {
 			elArr[elArr.length]=new ContentBlock(array, elArr);
 		}else{
 			elArr[elArr.length]=new ImageBlock(array, elArr);
+		}
+	}
+}
+
+// ============================
+// accordion
+// ============================
+
+class Accordion {
+	constructor(el) {
+		var __this=this;
+		this.el=el;
+		this.items=this.el.find('.accordion-item');
+		this.dropDown='.accordion-item__dropdown';
+		this.calculateHeights();
+		this.appendIcons();
+		$(window).on('resize', function(){ __this.calculateHeights(); });
+		this.el.find('button').on('click', function(e){
+			__this.runClick($(e.target));
+		});
+	}
+	calculateHeights(){
+		var __this=this;
+		this.items.each(function(){
+			var el=$(this);
+			var last=el.find('.accordion-item__description > *').last();
+			var height=last.offset().top-last.parent().offset().top+last.height();
+			var drop=el.find(__this.dropDown);
+			drop.attr('dataHeight', height);
+		});
+	}
+	appendIcons(){
+		this.items.each(function(){
+			var el=$(this);
+			var h3=el.find('button');
+			$('.icon--plus').first().clone().appendTo(h3);
+		});
+	}
+	runClick(el){
+		var __this=this;
+		var item=el.closest('.accordion-item');
+		if(item.is('.active')){
+			item.removeClass('active');
+			item.find(this.dropDown).height(0);
+		}else{
+			item.addClass('active');
+			var dropDown=item.find(this.dropDown);
+			dropDown.height(parseInt(dropDown.attr('dataHeight')));
+			item.siblings().each(function(){
+				var el=$(this);
+				el.removeClass('active');
+				el.find(__this.dropDown).height(0);
+			})
+			
 		}
 	}
 }
@@ -509,7 +566,6 @@ class ContentBlock {
 		this.array=array;
 		this.elArray=elArray;
 		this.innerArray=[];
-		console.log(array, elArray);
 		this.createBase();
 		this.createContent();
 		this.populateBase();
@@ -527,7 +583,7 @@ class ContentBlock {
 		this.contentArray=[];
 		var cnt=0;
 		$.each(this.array, function(index, item){
-			if($(this).is('.html-block')) {
+			if($(this).is('.html-block')||$(this).is('.accordion-block')) {
 				__this.contentArray.push(item);
 				item.attr('dataTransitionDelay', cnt);
 				cnt++;
@@ -550,8 +606,8 @@ class ContentBlock {
 					var options=str[1];
 					if(options.indexOf('preline')>-1){ 
 						el.addClass('preline');
+						el.text(str[0]);
 					}
-					el.text(str[0]);
 				}
 			})
 		})
@@ -564,6 +620,8 @@ class ContentBlock {
 		this.last.clone().prependTo(footer.find('.grid'));
 		footer.appendTo(this.gridBase);
 		
+		console.log(this.contentArray);
+		
 		for(var x=1; x<this.contentArray.length-1; x++){
 			var el=this.contentArray[x];
 			this.innerArray.push(el);
@@ -573,10 +631,11 @@ class ContentBlock {
 			var str=el.text().split(' | ');
 			if(str.length>1){
 				var options=str[1];
-				if(options.indexOf('fullwidth')>-1) blockWidth=' medium-up--padding-bottom-double';
+				if(options.indexOf('fullwidth')>-1){ 
+					blockWidth=' medium-up--padding-bottom-double';
+				}
 				if(options.indexOf('preline')>-1){ 
 					addEl.find('h2').addClass('preline');
-					console.log('found preline!!!!');
 				}
 			}
 			addEl.addClass('one-whole '+blockWidth+' medium-up--margin-left-col')
@@ -623,9 +682,8 @@ class ImageBlock {
 		this.elArray=elArray;
 		this.first=this.array[0];
 		this.createBase();
+		this.setupLink();
 		this.populateBase();
-		console.log(this.section.width()+'       width? why is this not working?');
-		
 	}
 	createBase(){
 		var __this=this;
@@ -633,6 +691,19 @@ class ImageBlock {
 		this.section.appendTo(this.container);
 		this.wrapper=this.section.find('.wrapper');
 		this.grid=this.section.find('.grid--column');
+	}
+	setupLink() {
+		var a=null;
+		for(var x=0; x<this.array.length; x++){
+			var el=this.array[x];
+			if(a==null){
+				if(el.find('a').length){ 
+					console.log('found a');
+					a=el.find('a').first();
+				}
+			}
+			if(a!=null) this.section.append(a.clone().text(''));
+		}
 	}
 	populateBase(){
 		var __this=this;

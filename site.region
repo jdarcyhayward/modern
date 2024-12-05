@@ -310,6 +310,14 @@
       <path class="st1" d="M2058.7,157.1c10.5,4.4,30,9.1,48.5,9.1v-26c-25.4,0-47.1-12.3-48.5-12.9V157.1z"/>
     </g>
     </svg>
+    <svg version="1.1" class="icon--plus" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+       viewBox="0 0 22.9 22.8" style="enable-background:new 0 0 22.9 22.8;" xml:space="preserve">
+    <style type="text/css">
+      .st0{fill:none;stroke:#3A2426;stroke-width:0.25;}
+    </style>
+    <line class="st0" x1="11.4" y1="19.7" x2="11.3" y2="3.1"/>
+    <line class="st0" x1="3" y1="11.4" x2="19.7" y2="11.4"/>
+    </svg>
     <div id="isMobile"></div>
   </body>
 </html>
