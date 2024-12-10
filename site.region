@@ -5,8 +5,8 @@
     <meta name="viewport" content="initial-scale=1">
 
     {squarespace-headers}
-    <script>/*<link rel="stylesheet" href="https://jdarcyhayward.github.io/modern/scripts/theme.css">*/</script>
-    <link rel="stylesheet" href="/scripts/theme.css">
+    <link rel="stylesheet" href="https://jdarcyhayward.github.io/modern/scripts/theme.css">
+    <script>/*<link rel="stylesheet" href="/scripts/theme.css">*/</script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="/scripts/theme.js"></script> 
   </head>

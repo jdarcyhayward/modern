@@ -58,6 +58,11 @@ h3, .h3 {
       margin-right: calc(1 * var(--margin));
       transform: translateY(calc(-.05 * var(--colWidth)));
       width: calc((2 * var(--colWidth)) - var(--margin));
+      
+      @include medium-down {
+        transform: translateY(calc(-.25 * var(--margin)));
+        width: calc(4 * var(--margin));  
+      }
     }
   }
 }

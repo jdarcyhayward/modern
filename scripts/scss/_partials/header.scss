@@ -85,14 +85,14 @@ body[dataNavigation] {
     color: var(--colorFooterType);
     display: flex;
     flex-direction: column;
-    height: 20vh;
+    height: 25vh;
     justify-content: space-between;
     padding: calc(.5 * var(--col-width));
     position: absolute;
     right: 0;
     top: 0;  
     transform: translateX(100%);
-    width: 20vh;
+    width: 25vh;
     z-index: 10;
     
     @include medium-down {
@@ -101,7 +101,7 @@ body[dataNavigation] {
       padding: var(--margin);
       right: auto;
       transform: translateX(-100%);
-      width: 20vw;
+      width: 25vw;
     }
     
     .nav--item__footer {
@@ -110,7 +110,7 @@ body[dataNavigation] {
       justify-content: space-between;
       
       > div {
-        width: calc(20vh - (.5 * var(--col-width)));
+        width: calc(25vh - (.5 * var(--col-width)));
         
         @include medium-down {
           
@@ -121,8 +121,18 @@ body[dataNavigation] {
       }
     }
     
-    span.cnt, a {
+    span.cnt,
+    .nav--item__footer a {
       color: var(--colorFooterType);
+      text-decoration: none;
+      
+      &:hover {
+        opacity: .5;
+        transition: opacity .975s var(--easeOutQuart);
+      }
+    }    
+    span.cnt,
+    .nav--item__footer > div:first-child * {
       font-size: var(--typeSizeHeading);
     }
     @include medium-down {
@@ -132,33 +142,33 @@ body[dataNavigation] {
     }
     
     &:nth-child(2){
-      height: 40vh;
+      height: 50vh;
       transition-delay: .15s;
-      width: 40vh;
+      width: 50vh;
       z-index: 9;
       
       @include medium-down {
-        width: 40vw;
+        width: 50vw;
       }
     }
     &:nth-child(3){
-      height: 60vh;
+      height: 75vh;
       transition-delay: .3s;
-      width: 60vh;
+      width: 75vh;
       z-index: 8;
       
       @include medium-down {
-        width: 60vw;
+        width: 75vw;
       }
     }
     &:nth-child(4){
-      height: 80vh;
+      height: 100vh;
       transition-delay: .45s;
-      width: 80vh;
+      width: 100vh;
       z-index: 7;
       
       @include medium-down {
-        width: 80vw;
+        width: 100vw;
       }
     }
     &:nth-child(5){

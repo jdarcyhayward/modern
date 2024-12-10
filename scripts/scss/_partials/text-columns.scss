@@ -53,7 +53,19 @@
     
     @include medium-up {
       margin-left: calc(-1 * var(--col-width));  
-      width: calc(100% + (2 * var(--col-width)));  
+      width: calc(100% + (1 * var(--col-width)));  
+    }
+    @include medium-up {
+      
+      &[class*="columns--"] .sqs-html-content {
+        column-gap: var(--colWidth);
+      }
+      &.columns--3 .sqs-html-content {
+        column-count: 3;
+      }
+      &.columns--2 .sqs-html-content {
+        column-count: 2;
+      }
     }
   }
 }
@@ -112,6 +124,12 @@
 .section.section--image-overlay {
   overflow: hidden;
   width: auto;
+  
+  @include medium-up {
+    +.section--image-overlay {
+      margin-left: calc(.25 * var(--margin));
+    }
+  }
 }
 
 .section.section--image-overlay > a {
@@ -240,11 +258,32 @@
 .section.section--image-overlay {
   
   .image--overlay__content {
-    opacity: 0;
     transition: opacity .975s var(--easeOutQuart);
+    
+    @include medium-up {
+      opacity: 0;
+    }
   }
   &[dataCaption] .image--overlay__content {
     opacity: 1;
+  }
+}
+@include medium-down {
+  
+  .section.section--image-overlay {
+    width: 100%;
+    
+    .image--overlay {
+      
+      img {
+        left: 50%;
+        position: relative;
+        transform: translateX(-50%);
+      }
+    }
+    &.contentless {
+      min-height: 0;
+    }
   }
 }
 
@@ -257,9 +296,17 @@
     transform: rotate(-90deg);
     width: calc(100vh - (2 * var(--colWidth)));
     
+    @include medium-down {
+      width: calc(100vh - (4 * var(--margin)));
+    }
+    
     h2 {
       margin: 0 calc(1 * var(--colWidth)) 0 0;
       width: calc(1 * var(--colWidth));
+      
+      @include medium-down {
+        width: 33.33333%;
+      }
       
       &:last-child {
         margin: 0 0 0 auto;
