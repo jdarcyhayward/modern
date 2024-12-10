@@ -728,6 +728,8 @@ class ImageBlock {
 			if(imgAttr.indexOf('width100')>-1) this.section.addClass('width--full');
 			if(imgAttr.indexOf('width50')>-1) this.section.addClass('width--half');
 			if(imgAttr.indexOf('darkimage')>-1) this.section.addClass('dark--image');
+			if(imgAttr.indexOf('hidemobile')>-1) this.section.addClass('hide--medium-down');
+			if(imgAttr.indexOf('hidedesktop')>-1) this.section.addClass('hide--medium-up');
 		}
 		var dims=this.img.attr('data-image-dimensions').split('x');
 		var aspect=dims[0]+'/'+dims[1];
@@ -774,7 +776,7 @@ class ImageBlock {
 (function($) {
 	$(document).ready(function(){ 
 		var url=window.location.href;
-		if(url.indexOf('squarespacexxx')==-1) new Loader(); 
+		if(url.indexOf('squarespace')==-1) new Loader(); 
 		else {
 			$('#header, .Mobile, .Header').hide();
 			$('html .sqs-block.sqs-block-editable:not(.sqs-block-editing)').css('position', 'relative');
