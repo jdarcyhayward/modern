@@ -232,7 +232,7 @@ body {
   
   img, svg {
     display: block;
-    height: 1.5vw;
+    height: 1.125vw;
     left: 0;
     max-height: 32px;
     position: absolute;
@@ -466,5 +466,148 @@ body {
         opacity: 1;
       }
     }
+  }
+}
+
+#loader {
+  animation: animationHide .975s;
+  animation-delay: 4.375s;
+  animation-fill-mode: forwards; 
+  animation-iteration-count: 1;
+  
+  align-items: center;
+  background: var(--colorBG);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+  
+  > span {
+    position: relative;
+    width: calc(4 * var(--colWidth));
+  }
+  > span svg {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+  }
+}
+
+#loader svg {
+  
+  * {
+    fill: rgba(0, 0, 0, 0);
+  }
+}
+#loader #logo-loader {
+  
+  * {
+    animation: loaderAnimation 3s;
+    animation-delay: .375s;
+    animation-fill-mode: forwards; 
+    animation-iteration-count: 1;
+    fill: none;
+    stroke: var(--colorType);
+    stroke-dasharray: 720 720;
+    stroke-width: 3px;
+    stroke-dashoffset: 720;
+  }
+}
+
+#loader #logo-loader-fill {
+  * {
+    animation: loaderFill 2s;
+    animation-delay: 2.375s;
+    animation-fill-mode: forwards; 
+    animation-iteration-count: 1;
+    fill: none;
+    stroke: none;
+  }
+}
+
+body[dataClosing]{
+  
+  #loader {
+    animation-delay: 0s;
+    animation-duration: .975s;
+    animation-name: animationShow;
+  }
+  #loader #logo-loader * {
+    animation-name: loaderAnimationHide;
+    animation-duration: 3s;
+    animation-delay: .975s;
+    stroke-dashoffset: 0;
+  }
+  #loader #logo-loader-fill {
+    
+    * {
+      animation-name: loaderUnFill;
+      animation-duration: 1.375s;
+      animation-delay: .975s;
+      fill: var(--colorType);
+    }
+  }
+}
+
+@keyframes loaderAnimation {
+  
+  0%{
+    stroke-dashoffset: 720;
+  }
+  100%{
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes loaderAnimationHide {
+  
+  0%{
+    stroke-dashoffset: 0;
+  }
+  100%{
+    stroke-dashoffset: 720;
+  }
+}
+
+@keyframes loaderFill {
+  
+  0%{
+    fill: rgba(0, 0, 0, 0);
+  }
+  100%{
+    fill: var(--colorType);
+  }
+}
+@keyframes loaderUnFill {
+  
+  0%{
+    fill: var(--colorType);
+  }
+  100%{
+    fill: rgba(0, 0, 0, 0);
+  }
+}
+@keyframes animationHide {
+  
+  0%{
+    opacity: 100%;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+@keyframes animationShow {
+  
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 100%;
   }
 }

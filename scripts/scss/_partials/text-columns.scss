@@ -97,13 +97,14 @@
   img {
     height: auto;
     right: 0;
+    margin: calc(-1 * var(--margin)) 0;
     max-height: calc(1 * var(--colWidth));
     position: absolute;
     top: 0;
     width: auto;
     
     @include medium-down {
-      max-height: calc(3 * var(--margin));
+      max-height: calc(4 * var(--margin));
     }
     
     &[alt*="bottom"] {

@@ -172,6 +172,22 @@ class ScrollClass {
 	}
 }
 
+class ClickManage {
+	
+	constructor(){
+		$('#navigation a, .section--image-overlay a').on('click', function(e){
+			if(!$(this).is('[href*="#contact"]')){
+				var url=$(this).attr('href');
+				e.preventDefault();
+				$('body').attr('dataClosing', 1);
+				setTimeout(function(){
+					window.location.href=url;
+				}, 1000);
+			}
+		})
+	}
+}
+
 // ==============================================
 // 		loading styles
 // ==============================================
@@ -196,6 +212,7 @@ class Loader {
 		new Header(this.headerBlock);
 		new Logo();
 		new ScrollClass();
+		new ClickManage();
 	}
 	clearBlocks(){
 		$('.sqs-block').each(function(){
