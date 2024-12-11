@@ -793,7 +793,7 @@ class ImageBlock {
 (function($) {
 	$(document).ready(function(){ 
 		var url=window.location.href;
-		if(url.indexOf('config')==-1) new Loader(); 
+		if(url.indexOf('localhost')>-1) new Loader(); 
 		else {
 			$('#header, .Mobile, .Header').hide();
 			$('html .sqs-block.sqs-block-editable:not(.sqs-block-editing)').css('position', 'relative');

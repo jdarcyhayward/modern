@@ -559,6 +559,30 @@ label, .sharing-label {
   
   */
 
+ul[data-rte-list] {
+  margin: 0;
+  padding: 0;
+  
+  li {
+    list-style: none;
+    margin: calc(.25 * var(--margin)) 0;
+    max-width: 480px;
+    padding-left: var(--margin);
+    position: relative;
+    
+    &:before {
+      background: var(--colorType);
+      border-radius: 99px;
+      content: '';
+      height: 3px;
+      left: 0;
+      position: absolute;
+      top: 5px;
+      width: 3px;
+    }
+  }
+}
+
 .rte {
   
   p {

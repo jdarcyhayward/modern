@@ -5485,11 +5485,8 @@ body[dataNavigation] .menu-content > * {
 @media (max-width: 680px) {
   #navigation .nav--item {
     justify-content: flex-end;
-    left: 0;
     padding: var(--margin);
-    right: auto;
-    transform: translateX(-100%);
-    width: 25vw;
+    width: 50vw;
   }
 }
 #navigation .nav--item .nav--item__footer {
@@ -5532,7 +5529,7 @@ body[dataNavigation] .menu-content > * {
 }
 @media (max-width: 680px) {
   #navigation .nav--item:nth-child(2) {
-    width: 50vw;
+    width: 66.66666vw;
   }
 }
 #navigation .nav--item:nth-child(3) {
@@ -5543,7 +5540,7 @@ body[dataNavigation] .menu-content > * {
 }
 @media (max-width: 680px) {
   #navigation .nav--item:nth-child(3) {
-    width: 75vw;
+    width: 83.33333vw;
   }
 }
 #navigation .nav--item:nth-child(4) {
@@ -5752,7 +5749,7 @@ body[dataNavigation] #header h1 svg *, body[dataFooterVisible] #header h1 svg * 
     transform: none !important;
   }
   body #header h1 svg {
-    height: 24px;
+    height: 20px;
   }
   body #header h1 svg * {
     fill: white;
@@ -5794,6 +5791,11 @@ body[logoVisibility] #header svg#logo-mobile g > * {
 #loader > span {
   position: relative;
   width: calc(4 * var(--colWidth));
+}
+@media (max-width: 680px) {
+  #loader > span {
+    width: 66.6666vw;
+  }
 }
 #loader > span svg {
   left: 50%;
@@ -6405,6 +6407,28 @@ label, .sharing-label {
   .rte
 
   */
+ul[data-rte-list] {
+  margin: 0;
+  padding: 0;
+}
+ul[data-rte-list] li {
+  list-style: none;
+  margin: calc(0.25 * var(--margin)) 0;
+  max-width: 480px;
+  padding-left: var(--margin);
+  position: relative;
+}
+ul[data-rte-list] li:before {
+  background: var(--colorType);
+  border-radius: 99px;
+  content: "";
+  height: 3px;
+  left: 0;
+  position: absolute;
+  top: 5px;
+  width: 3px;
+}
+
 .rte p {
   text-indent: 0;
 }
@@ -7015,6 +7039,12 @@ body .section--footer .form-block .form-wrapper .form-submit-button.sqs-editable
   width: auto;
 }
 
+/* first child overlay */
+@media (max-width: 680px) {
+  .section.section--image-overlay:first-child .image--caption {
+    mix-blend-mode: difference;
+  }
+}
 .accordion-block .accordion-items-container {
   list-style: none;
   margin: 0;

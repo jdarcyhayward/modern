@@ -318,6 +318,17 @@
   }
 }
 
+/* first child overlay */
+
+@include medium-down {
+  .section.section--image-overlay:first-child {
+    
+    .image--caption {
+      mix-blend-mode: difference;
+    }
+  }
+}
+
 //==========================================
 // accordion
 //==========================================
