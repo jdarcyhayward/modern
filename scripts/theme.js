@@ -182,7 +182,7 @@ class ClickManage {
 				$('body').attr('dataClosing', 1);
 				setTimeout(function(){
 					window.location.href=url;
-				}, 1000);
+				}, 1675);
 			}
 		})
 	}
