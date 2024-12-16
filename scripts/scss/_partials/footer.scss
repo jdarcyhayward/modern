@@ -202,3 +202,9 @@ body .section--footer {
     }
   }
 }
+
+// form
+
+.form-field-error {
+  transform: translateY(calc(-1 * var(--margin)));
+}

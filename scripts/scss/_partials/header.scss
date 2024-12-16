@@ -104,10 +104,18 @@ body[dataNavigation] {
     .nav--item__footer {
       align-items: flex-end;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       
       > div {
-        width: calc(25vh - (.5 * var(--col-width)));
+        width: 25vh;
+        
+        &:first-child,
+        &:last-child {
+          width: calc(25vh - (.5 * var(--col-width)));
+        }
+        &:last-child {
+          margin-left: auto;
+        }
         
         @include medium-down {
           

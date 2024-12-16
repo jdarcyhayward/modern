@@ -5492,10 +5492,16 @@ body[dataNavigation] .menu-content > * {
 #navigation .nav--item .nav--item__footer {
   align-items: flex-end;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 #navigation .nav--item .nav--item__footer > div {
+  width: 25vh;
+}
+#navigation .nav--item .nav--item__footer > div:first-child, #navigation .nav--item .nav--item__footer > div:last-child {
   width: calc(25vh - 0.5 * var(--col-width));
+}
+#navigation .nav--item .nav--item__footer > div:last-child {
+  margin-left: auto;
 }
 @media (max-width: 680px) {
   #navigation .nav--item .nav--item__footer > div:nth-child(n+2) {
@@ -6742,6 +6748,10 @@ body .section--footer .form-block .form-wrapper .form-submit-button:hover:before
 body .section--footer .form-block .form-wrapper .form-submit-button.sqs-editable-button:before,
 body .section--footer .form-block .form-wrapper .form-submit-button.sqs-editable-button:hover:before {
   border-top: 1px solid var(--colorBorderFooter);
+}
+
+.form-field-error {
+  transform: translateY(calc(-1 * var(--margin)));
 }
 
 .section.section--content {
